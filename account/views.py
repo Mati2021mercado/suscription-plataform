@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . forms import CreateUserForm
-
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
-
+from django.contrib.auth import authenticate, login
 # Create your views here.
 def home(request): 
     return render(request, 'account/index.html')
@@ -20,9 +20,9 @@ def register(request):
         
         if form.is_valid():
             form.save()
-            return HttpResponse("Usuario registrado correctamente")
+            return redirect('my_login')
         
-    context = {'form': form}
+    context = {'RegisterForm': form}
     
     return render(request, 'account/register.html', context)
 
@@ -30,4 +30,28 @@ def register(request):
 
 
 def my_login(request): 
-    return render(request, 'account/my-login.html')
+    
+    form = AuthenticationForm()
+    
+    if request.method == "POST":
+        
+        form = AuthenticationForm(request, data=request.POST)
+        
+        if form.is_valid():
+            
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None and user.is_writer==True:
+                login(request, user)
+                
+                return HttpResponse('bienvenido escritor')
+            elif user is not None and user.is_writer==False:
+                login(request, user)
+                
+                return HttpResponse('bienvenido cliente')
+    
+    context = {'LoginForm':form}
+    return render(request, 'account/my-login.html', context)

@@ -1,1 +1,34 @@
-<h1>LOGIN</h1>
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+        <title>Login</title>
+    
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    </head>
+
+    
+
+    <br>
+    <div class="container bg-white shadow-md p-4 form-layout">
+
+        <h1>LOGIN</h1>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            {{LoginForm|crispy}}
+
+            <input class="btn btn-success" type="submit" value="Login"/>
+
+        </form>
+    </div>
+    <br>
+
+</html>
