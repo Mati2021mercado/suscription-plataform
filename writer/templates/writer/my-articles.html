@@ -1,0 +1,25 @@
+{% extends 'writer/navbar.html' %}
+
+{% block content %}
+
+    <br>
+
+    {% for article in AllArticles %}
+
+        <div class="container bg-white shadow-md p-5 form-layout">
+
+            <h3>{{article.title}}</h3>
+            <p>{{article.content}}</p>
+                <br>
+                <br>
+            <p>{{article.date_posted}}</p>
+                <br>
+                <br>
+
+        </div>
+
+        <br>
+    {% endfor %}
+
+
+{% endblock %}

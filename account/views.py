@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from . forms import CreateUserForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def home(request): 
     return render(request, 'account/index.html')
@@ -58,3 +58,10 @@ def my_login(request):
     
     context = {'LoginForm':form}
     return render(request, 'account/my-login.html', context)
+
+
+def user_logout(request):
+    
+    logout(request)
+    
+    return redirect('my_login')

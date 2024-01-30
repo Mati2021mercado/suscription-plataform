@@ -1,1 +1,11 @@
-<h1>ESTO ES WRITER dashboard</h1>
+{% extends "writer/navbar.html" %}
+
+
+{% block content %}
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
+        <h5>😃HOLA {{user.first_name|upper}}</h5>
+    </div>
+
+{% endblock  %}
+
