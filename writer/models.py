@@ -10,3 +10,5 @@ class Article(models.Model):
     is_premium = models.BooleanField(default=False, verbose_name="Is this a premium article?")
     
     user = models.ForeignKey(CustomUser, max_length=10, on_delete=models.CASCADE, null=True)
+    
+    
