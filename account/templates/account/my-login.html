@@ -26,8 +26,15 @@
             {{LoginForm|crispy}}
 
             <input class="btn btn-success" type="submit" value="Login"/>
+            
 
         </form>
+    </div>
+    <br>
+    <div class="container bg-white shadow-md p-4 form-layout">
+        <p>You dont have account?</p>
+        <br>
+        <a class="btn btn-info" type="button" href="{% url 'register' %}">Register</a>
     </div>
     <br>
 

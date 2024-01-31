@@ -6,25 +6,20 @@
     <br>
 
     <div class="container bg-white shadow-md p-5 form-layout">
-        <h3> Delte an article </h3>
-        <p> Puedes eliminar un articulo abajo: </p>
+        <h3> Delte account </h3>
+        <p> Puedes eliminar tu cuenta abajo: </p>
 
         <br>
 
         <form autocomplete="off" method="post">
             {% csrf_token %}
 
-            <input class="btn btn-danger" type="submit" value="Delete Article"/>
+            <input class="btn btn-danger" type="submit" value="Delete account"/>
         </form>
         <br>
-        <a href="{% url 'my-articles' %}">Cancelar</a>
+        <a href="{% url 'account-management' %}">Cancelar</a>
 
     </div>
 
 
-
-
-
-
-
-{% endblock %}
+{% endblock %} 

@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from . forms import ArticleForm
+from . forms import ArticleForm, UpdateUserForm
 from . models import Article
+from account.models import CustomUser
 
 
 @login_required(login_url='my_login')
 def writer_dashboard(request):
      return render(request, 'writer/writer-dashboard.html')
+    
+    
+########################
+########################
+########################
+
     
 @login_required(login_url='my_login')
 def create_article(request):
@@ -30,6 +37,12 @@ def create_article(request):
      
      return render(request, 'writer/create-article.html', context)
 
+
+########################
+########################
+########################
+
+
 @login_required(login_url='my_login')
 def my_articles(request):
      current_user=request.user.id 
@@ -40,6 +53,11 @@ def my_articles(request):
      context = {'AllArticles': article}
      
      return render(request, 'writer/my-articles.html', context)
+
+
+########################
+########################
+########################
 
 
 #Tenemos nuestra vista de artículo de actualización aquí configurada,
@@ -78,6 +96,11 @@ def update_article(request, pk):
      return render(request, 'writer/update-article.html', context)
 
 
+
+########################
+########################
+########################
+
 @login_required(login_url='my_login')
 def delete_article(request, pk):
      
@@ -92,3 +115,55 @@ def delete_article(request, pk):
           return redirect('my-articles')
      
      return render(request, 'writer/delete-article.html')
+
+
+
+
+########################
+########################
+########################
+
+
+
+@login_required(login_url='my_login')
+def account_management(request):
+     
+     #para que los campos no esten en blancos paso la instancia para que se rellenen con los datos del usuario conectado, asi previamente se autocompletan esos campos en blanco para luego editarse (email, firstname, lastname)
+     
+     form = UpdateUserForm(instance=request.user)
+     
+     if request.method == 'POST':
+          
+          form = UpdateUserForm(request.POST, instance=request.user)
+          
+          if form.is_valid():
+               
+               form.save()
+               
+               return redirect('writer-dashboard')
+               
+     context = {'UpdateUserForm':form}
+          
+     return render(request, 'writer/account-management.html', context)
+
+
+
+########################
+########################
+########################
+
+
+
+@login_required(login_url='my_login')
+def delete_account(request):
+     
+     if request.method == 'POST':
+          # Obtenemos el email del usuario que actualmente ha iniciado sesión.
+          # Request.user buscará el email del usuario que actualmente ha iniciado sesión y lo comparará a ese campo de email en nuestra base de datos desde nuestro modelo de usuario personalizado
+          deleteUser = CustomUser.objects.get(email=request.user)
+          #eliminamos al usuario con ese email
+          deleteUser.delete()
+          
+          return redirect('my_login')
+     
+     return render(request, 'writer/delete-account.html')

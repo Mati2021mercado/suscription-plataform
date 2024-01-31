@@ -14,9 +14,15 @@
                 <br>
             <p>{{article.date_posted}}</p>
                 <br>
+            {% if article.is_premium == True %}
+            <h5>⭐Premium</h5>
+            {% elif article.is_premium == False %}
+            <h5>Standard</h5>
+            {% endif %}
+                
                 <br>
-                <a href="{% url 'update-article' article.id %}"> Update article</a>
-                <a href="{% url 'delete-article' article.id %}"> Delete article</a>
+            <a href="{% url 'update-article' article.id %}"> Update article</a>
+            <a href="{% url 'delete-article' article.id %}"> Delete article</a>
         </div>
 
         <br>
