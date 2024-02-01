@@ -1,3 +1,11 @@
-<h1>ESTO ES EL CLIENTE</h1>
+{% extends 'client/navbar.html' %}
 
-<a href="{% url 'user-logout' %}">LOGOUT</a>
+{% block content %}
+
+<h1>ESTO ES EL CLIENTE</h1>
+<br>
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
+        <h5>😃HOLA {{user.first_name|upper}}</h5>
+    </div>
+
+{% endblock %}

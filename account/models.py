@@ -16,7 +16,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=now)
     is_writer = models.BooleanField(default=True, verbose_name="Are you a writer?")
-    
+    api_key = models.TextField(default="Introduce tu API-KEY de scrapeak")
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     
