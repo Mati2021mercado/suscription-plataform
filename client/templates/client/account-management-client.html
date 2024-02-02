@@ -1,19 +1,18 @@
 {% extends 'client/navbar.html' %}
 
+
 {% block content %}
 
-
-<br>
+    <br>
     <div class="container bg-white shadow-md p-5 form-layout text-center">
-        <h5> Suscription Locked </h5>
 
-        <p>Please subscribe a plan to view the articles</p>
+        <h5>browse subscription plans</h5>
 
         <hr>
 
         <a href="{% url 'subscription-plans' %}" class="btn btn-success" type="button">Subscription plans</a>
+
+
     </div>
-    
-    
 
 {% endblock %}

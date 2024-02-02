@@ -78,3 +78,14 @@ def subscription_locked(request):
 def subscription_plans(request):
     
     return render(request,'client/subscription-plans.html')
+
+
+
+###############
+###############
+###############
+
+
+@login_required(login_url='my_login')
+def account_management_client(request):
+    return render(request,'client/account-management-client.html')
