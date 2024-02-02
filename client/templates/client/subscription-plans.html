@@ -1,0 +1,90 @@
+{% extends 'client/navbar.html' %}
+
+{% block content %}
+
+    <br>
+    
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
+        <h5>Susbscription plans</h5>
+    </div>
+
+    <br>
+
+
+    <div class="container " >
+        <div class="row">
+
+            <div class="container bg-white shadow-md p-5 form-layout text-center ">
+    
+                <h5>Standard Subscription</h5>
+                <hr>
+                <p>Join us for standard access here: </p>
+                <strong> (limited access to browse only in standard articles) </strong>
+                <hr>
+    
+                <!-- STANDARD PLAN -->
+                
+                <div id="paypal-button-container-P-6VV04428WV955023FMW6JMWI"></div>
+                <script src="https://www.paypal.com/sdk/js?client-id=AcHtRS1ntpopmDWrp3m6HsRKvHIfh_z0VW8LWGpXqLihY0tGxfOXxXmiJS6qEKrq2ajTNnjd3txStsjU&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+                <script>
+                paypal.Buttons({
+                    style: {
+                        shape: 'pill',
+                        color: 'blue',
+                        layout: 'vertical',
+                        label: 'paypal'
+                    },
+                    createSubscription: function(data, actions) {
+                        return actions.subscription.create({
+                        /* Creates the subscription */
+                        plan_id: 'P-6VV04428WV955023FMW6JMWI'
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+                    }
+                }).render('#paypal-button-container-P-6VV04428WV955023FMW6JMWI'); // Renders the PayPal button
+                </script>
+            </div>
+    
+            <br>
+    
+            <div class="container bg-white shadow-md p-5 form-layout text-center ">
+    
+                <h5>Premium Subscription</h5>
+                <hr>
+                <p>Join us for Premium access here: </p>
+                <strong> (access to browse to all articles) </strong>
+                <hr>
+                    
+                    <!-- PREMIUM PLAN -->
+                    <div id="paypal-button-container-P-1GG33598J3912751EMW6KSLA"></div>
+                    <script>
+                    paypal.Buttons({
+                        style: {
+                            shape: 'pill',
+                            color: 'gold',
+                            layout: 'vertical',
+                            label: 'paypal'
+                        },
+                        createSubscription: function(data, actions) {
+                            return actions.subscription.create({
+                            /* Creates the subscription */
+                            plan_id: 'P-1GG33598J3912751EMW6KSLA'
+                            });
+                        },
+                        onApprove: function(data, actions) {
+                            alert(data.subscriptionID); // You can add optional success message for the subscriber here
+                        }
+                    }).render('#paypal-button-container-P-1GG33598J3912751EMW6KSLA'); // Renders the PayPal button
+                    </script>
+            </div>
+    
+        </div>
+    </div>
+    
+
+    
+        
+        
+{% endblock %}

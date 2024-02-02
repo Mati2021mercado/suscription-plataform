@@ -1,5 +1,6 @@
 body{
     background-color: #f0f0f0;
+    overflow-x: hidden;
 }
 
 .form-layout{
@@ -7,3 +8,7 @@ body{
     border-radius: 10px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
+
+
+
+/* SUSCRIPTION-PLANS.HTML */
