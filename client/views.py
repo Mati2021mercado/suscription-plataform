@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from writer.models import Article
 from . models import Subscription
 from account.models import CustomUser
-
+from . paypal import *
 
 
 
@@ -89,8 +89,20 @@ def subscription_plans(request):
 
 @login_required(login_url='my_login')
 def account_management_client(request):
-    return render(request,'client/account-management-client.html')
-
+    
+    try:
+        subDetails = Subscription.objects.get(user=request.user)
+        
+        subscription_id = subDetails.paypal_subscription_id
+        
+        context = {'SubscriptionID': subscription_id}
+    
+        return render(request,'client/account-management-client.html', context)
+    
+    except:
+        
+        return render(request,'client/account-management-client.html')
+        
 
 ###############
 ###############
@@ -111,11 +123,11 @@ def create_subscription(request, subID, plan):
     
     if selected_sub_plan == "Standard":
         
-        sub_cost = "0.10"
+        sub_cost = "1.99"
     
     elif selected_sub_plan == "Premium":
         
-        sub_cost = "0.15"
+        sub_cost = "4.99"
         
     #Se crea la subscripcion
     subscription = Subscription.objects.create(
@@ -130,3 +142,26 @@ def create_subscription(request, subID, plan):
     context = {'SubscriptionPlan':selected_sub_plan}
     
     return render(request, 'client/create-subscription.html', context)
+
+
+
+
+###############
+###############
+###############
+
+
+@login_required(login_url='my_login')
+def delete_subscription(request, subID):
+    
+    # Delete subscription from paypal
+    
+    access_token = get_access_token()
+    cancel_subscription_paypal(access_token, subID)
+    
+    #Delete a subscription from Django (application side)
+    
+    subscription = Subscription.objects.get(user=request.user, paypal_subscription_id=subID)
+    subscription.delete()
+    
+    return render(request, 'client/delete-subscription.html')

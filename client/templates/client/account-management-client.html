@@ -4,6 +4,9 @@
 {% block content %}
 
     <br>
+
+<!-- Browse subscription plans -->
+
     <div class="container bg-white shadow-md p-5 form-layout text-center">
 
         <h5>browse subscription plans</h5>
@@ -14,5 +17,34 @@
 
 
     </div>
+
+    <br>
+    <!-- Cancel/Delete subscription -->
+
+    {% if  SubscriptionID %}
+        <div class="container bg-white shadow-md p-5 form-layout text-center">
+
+            <h5>Cancel your subscription</h5>
+
+            <hr>
+            <p>Permanently delete your subscription by clicking the button below:</p>
+            <br>
+            <a href="{% url 'delete-subscription' SubscriptionID %}" class="btn btn-danger" type="button">Cancel subscription</a>
+            
+            <!-- SubscriptionID es la llave que pasamos en el contexto con el valor es aquel que se paso dinamicamente como subID en la URL-->
+
+        </div>
+
+        <br>
+
+    {% else %}
+
+        <!-- Display nothing if there is no valid subscription ID -->
+
+
+
+
+    {% endif %}
+
 
 {% endblock %}
