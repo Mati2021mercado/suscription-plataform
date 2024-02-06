@@ -13,7 +13,7 @@
 
     <div class="container " >
         <div class="row">
-
+<!-- STANDARD PLAN -->
             <div class="container bg-white shadow-md p-5 form-layout text-center ">
     
                 <h5>Standard Subscription</h5>
@@ -24,7 +24,7 @@
     
                 <!-- STANDARD PLAN -->
                 
-                <div id="paypal-button-container-P-6VV04428WV955023FMW6JMWI"></div>
+                <div id="paypal-button-container-P-2NY579910G678903UMXA5S7Q"></div>
                 <script src="https://www.paypal.com/sdk/js?client-id=AcHtRS1ntpopmDWrp3m6HsRKvHIfh_z0VW8LWGpXqLihY0tGxfOXxXmiJS6qEKrq2ajTNnjd3txStsjU&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
                 <script>
                 paypal.Buttons({
@@ -37,7 +37,7 @@
                     createSubscription: function(data, actions) {
                         return actions.subscription.create({
                         /* Creates the subscription */
-                        plan_id: 'P-6VV04428WV955023FMW6JMWI'
+                        plan_id: 'P-2NY579910G678903UMXA5S7Q'
                         });
                     },
                     onApprove: function(data, actions) {
@@ -47,12 +47,12 @@
                         window.open(current_url, '_self')
 
                     }
-                }).render('#paypal-button-container-P-6VV04428WV955023FMW6JMWI'); // Renders the PayPal button
+                }).render('#paypal-button-container-P-2NY579910G678903UMXA5S7Q'); // Renders the PayPal button
                 </script>
             </div>
     
             <br>
-    
+     <!-- PREMIUM PLAN -->
             <div class="container bg-white shadow-md p-5 form-layout text-center ">
     
                 <h5>Premium Subscription</h5>
@@ -62,7 +62,7 @@
                 <hr>
                     
                     <!-- PREMIUM PLAN -->
-                    <div id="paypal-button-container-P-1GG33598J3912751EMW6KSLA"></div>
+                    <div id="paypal-button-container-P-7FN8721886700203NMXA5UNA"></div>
                     <script>
                     paypal.Buttons({
                         style: {
@@ -74,7 +74,7 @@
                         createSubscription: function(data, actions) {
                             return actions.subscription.create({
                             /* Creates the subscription */
-                            plan_id: 'P-1GG33598J3912751EMW6KSLA'
+                            plan_id: 'P-7FN8721886700203NMXA5UNA'
                             });
                         },
                         onApprove: function(data, actions) {
@@ -85,7 +85,7 @@
                         
                         
                         }
-                    }).render('#paypal-button-container-P-1GG33598J3912751EMW6KSLA'); // Renders the PayPal button
+                    }).render('#paypal-button-container-P-7FN8721886700203NMXA5UNA'); // Renders the PayPal button
                     </script>
             </div>
     

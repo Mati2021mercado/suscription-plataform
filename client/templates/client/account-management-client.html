@@ -37,6 +37,32 @@
 
         <br>
 
+        <!-- Update/revisar la subscripcion -->
+
+
+        <div class="container bg-white shadow-md p-5 form-layout text-center">
+
+            <h5>Update your subscription</h5>
+
+            <hr>
+            <p>Upgrade or downdrage your subscription by clicking the button below:</p>
+            <br>
+            <a href="{% url 'update-subscription' SubscriptionID %}" class="btn btn-info" type="button">Update subscription</a>
+            
+            <!-- SubscriptionID es la llave que pasamos en el contexto con el valor es aquel que se paso dinamicamente como subID en la URL-->
+
+        </div>
+
+        <br>
+
+
+
+
+
+
+
+
+
     {% else %}
 
         <!-- Display nothing if there is no valid subscription ID -->

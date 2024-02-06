@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from writer.models import Article
 from . models import Subscription
@@ -91,6 +92,7 @@ def subscription_plans(request):
 def account_management_client(request):
     
     try:
+        
         subDetails = Subscription.objects.get(user=request.user)
         
         subscription_id = subDetails.paypal_subscription_id
@@ -165,3 +167,92 @@ def delete_subscription(request, subID):
     subscription.delete()
     
     return render(request, 'client/delete-subscription.html')
+
+
+
+
+###############
+###############
+###############
+
+
+
+@login_required(login_url='my_login')
+def update_subscription(request, subID):
+    
+    access_token = get_access_token()
+    
+    #approve_link = Hateoas link from paypal
+    
+    approve_link = update_subscription_paypal(access_token, subID)
+    
+    #si no es None
+    if approve_link:
+        return redirect(approve_link)
+    
+    else:
+        return HttpResponse("no se puede obtener el enlace de aprobación")
+    
+    
+    
+
+###############
+###############
+###############
+
+
+@login_required(login_url='my_login')
+def paypal_update_sub_confirmed(request):
+    
+    try: 
+    
+        subDetails = Subscription.objects.get(user=request.user)
+        
+        subscriptionID = subDetails.paypal_subscription_id
+        
+        context = {'SubscriptionID':subscriptionID}
+        
+        return render(request, 'client/paypal-update-sub-confirmed.html', context)
+    
+    except:
+        
+        return render(request, 'client/paypal-update-sub-confirmed.html')
+
+
+
+###############
+###############
+###############
+
+
+@login_required(login_url='my_login')
+def django_update_sub_confirmed(request, subID):
+    
+    access_token = get_access_token()
+    
+    current_plan_id = get_current_subscription(access_token, subID)
+    
+    #Si el ID del plan coinside con el ID del plan Standard (variable plan_id en subscription-plans.html)
+    if current_plan_id == 'P-2NY579910G678903UMXA5S7Q': # Standard
+        
+        new_plan_name = "Standard"
+        new_cost = "1.99"
+        
+        #Redefino los valores de las variables (fields) del Modelo del usuario
+        Subscription.objects.filter(paypal_subscription_id=subID).update(
+            subscription_plan = new_plan_name,
+            subscription_cost = new_cost
+            )
+    
+    elif current_plan_id == 'P-7FN8721886700203NMXA5UNA': # Premium
+        
+        new_plan_name = "Premium"
+        new_cost = "4.99"
+        
+        #Redefino los valores de las variables (fields) del Modelo del usuario
+        Subscription.objects.filter(paypal_subscription_id=subID).update(
+            subscription_plan = new_plan_name,
+            subscription_cost = new_cost
+            )
+        
+    return render(request, 'client/paypal-update-sub-confirmed.html')
