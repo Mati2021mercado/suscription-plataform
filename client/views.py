@@ -5,6 +5,7 @@ from writer.models import Article
 from . models import Subscription
 from account.models import CustomUser
 from . paypal import *
+from . forms import UpdateUserForm
 
 
 
@@ -97,23 +98,75 @@ def subscription_plans(request):
 def account_management_client(request):
     
     try:
+        # update account details
         
+        # para que los campos no esten en blancos paso la instancia para que se rellenen con los datos del usuario conectado, asi previamente se autocompletan esos campos en blanco para luego editarse (email, firstname, lastname)
+        form = UpdateUserForm(instance=request.user)
+        if request.method == 'POST':
+            form = UpdateUserForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('client-dashboard')
+            
+        # check si el usuario tiene el subscription object
         subDetails = Subscription.objects.get(user=request.user)
-        
         subscription_id = subDetails.paypal_subscription_id
-        
-        context = {'SubscriptionID': subscription_id}
-    
+        #pasando los datos de nuestro template
+        context = {
+            'SubscriptionID': subscription_id,
+            'UpdateUserForm': form
+            }
         return render(request,'client/account-management-client.html', context)
     
+    
     except:
+        # update account details
         
-        return render(request,'client/account-management-client.html')
+        # para que los campos no esten en blancos paso la instancia para que se rellenen con los datos del usuario conectado, asi previamente se autocompletan esos campos en blanco para luego editarse (email, firstname, lastname)
+        form = UpdateUserForm(instance=request.user)
+        if request.method == 'POST':
+            form = UpdateUserForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('client-dashboard')
+        
+        #pasando los datos de nuestro template
+        context = {
+            'UpdateUserForm': form
+            }
+        return render(request,'client/account-management-client.html', context)
+
+
+
+###############
+###############
+###############
+
+
+@login_required(login_url='my_login')
+def delete_account_client(request):
+    
+    if request.method == 'POST':
+          # Obtenemos el email del usuario que actualmente ha iniciado sesión.
+          # Request.user buscará el email del usuario que actualmente ha iniciado sesión y lo comparará a ese campo de email en nuestra base de datos desde nuestro modelo de usuario personalizado
+          deleteUser = CustomUser.objects.get(email=request.user)
+          #eliminamos al usuario con ese email
+          deleteUser.delete()
+          
+          return redirect('my_login')
+     
+    return render(request, 'client/delete-account-client.html')
+
+
         
 
 ###############
 ###############
 ###############
+
+
+
+
 
 
 @login_required(login_url='my_login')
@@ -267,3 +320,7 @@ def django_update_sub_confirmed(request, subID):
             )
         
     return render(request, 'client/paypal-update-sub-confirmed.html')
+
+
+
+

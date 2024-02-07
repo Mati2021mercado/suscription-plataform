@@ -1,7 +1,26 @@
 {% extends 'client/navbar.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h3> Update account </h3>
+        <p>Puedes editar tu perfil abajo: </p>
+
+        <br>
+
+        <form autocomplete="off" method="post">
+
+            {% csrf_token %}
+
+            {{UpdateUserForm|crispy}}
+
+            <input class="btn btn-success" type="submit" value="Update details"/>
+            
+        </form>
+    </div>
+
+
 
     <br>
 
@@ -78,7 +97,18 @@
 
     {% endif %}
 
+        <!-- ELIMINAR CUENTA -->
+    <br>
 
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h3>Borrar cuenta</h3>
+        <a type="button" class="btn btn-danger" href="{% url 'delete-account-client' %}">Borrar</a>
+    </div>
+
+
+    <br>
+
+    <!-- SCRIPTS -->
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
