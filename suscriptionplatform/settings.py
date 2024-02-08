@@ -155,4 +155,6 @@ EMAIL_HOST_USER = 'djangotestmatias@gmail.com'
 # tengo que crear una constraseña de aplicacion en el gestor de la cuenta de google
 EMAIL_HOST_PASSWORD = ''
 
+
 DEFAULT_FROM_EMAIL = 'djangotestmatias@gmail.com'
+
