@@ -1,10 +1,31 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('register', views.register, name='register'),
     path('my_login', views.my_login, name='my_login'),
     path('user-logout', views.user_logout, name='user-logout'),
+    
+    # Password management
+    
+    # 1 - Permítanos ingresar nuestro correo electrónico para recibir un enlace de restablecimiento de contraseña.
+    
+    path('reset_password', auth_views.PasswordResetView.as_view(template_name="account/password-reset.html"),name="reset_password"),
+    
+    # 2 - Mostrar un mensaje de éxito indicando que se envió un correo electrónico para restablecer nuestra contraseña
+    
+    path('password_reset_sent', auth_views.PasswordResetDoneView.as_view(template_name="account/password-reset-sent.html"),name="password_reset_done"),
+    
+    # 3 - Envía un enlace a nuestro correo electrónico, para que podamos restablecer nuestra contraseña. + se nos pedirá que ingresemos una nueva contraseña
+    
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="account/password-reset-form.html"), name="password_reset_confirm"),
+    
+    # 4 - Mostrar un mensaje de éxito indicando que nuestra contraseña fue cambiada
+    
+    path('password_reset_complete', auth_views.PasswordResetCompleteView.as_view(template_name="account/password-reset-complete.html"), name="password_reset_complete"),
+    
+    
     
 ]

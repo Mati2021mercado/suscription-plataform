@@ -25,17 +25,18 @@
 
             {{LoginForm|crispy}}
 
-            <input class="btn btn-success" type="submit" value="Login"/>
+            <input class="btn btn-success w-100" type="submit" value="Login"/>
             
 
         </form>
+
+        <p>Don't have an account?</p>
+
+        <a  href="{% url 'register' %}">Register</a>
+
+        <hr>
+            
+        <a  href="{% url 'reset_password' %}">Forgotten your password?</a>
     </div>
-    <br>
-    <div class="container bg-white shadow-md p-4 form-layout">
-        <p>You dont have account?</p>
-        <br>
-        <a class="btn btn-info" type="button" href="{% url 'register' %}">Register</a>
-    </div>
-    <br>
 
 </html>
