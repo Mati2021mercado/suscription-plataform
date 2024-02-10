@@ -153,8 +153,6 @@ EMAIL_HOST_USER = 'djangotestmatias@gmail.com'
 #contraseña que django usara para contestar en nuestro nombre gmails de los usuarios
 # por ejemplo como para contestar email de restablecimiento de contraseña
 # tengo que crear una constraseña de aplicacion en el gestor de la cuenta de google
-EMAIL_HOST_PASSWORD = ''
-
+EMAIL_HOST_PASSWORD = 'rmav mmcs pfgz alrz'
 
 DEFAULT_FROM_EMAIL = 'djangotestmatias@gmail.com'
-
